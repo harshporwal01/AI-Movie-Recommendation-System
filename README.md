@@ -19,7 +19,7 @@ HTML / CSS
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/harshporwal01/movie-recommendation-system.git
+git clone https://github.com/harshporwal01/AI-Movie-Recommendation-System.git
 
 cd movie-recommendation-system
 
