@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Movie Recommendation</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>AI Movie Recommendation System</h1>
+
+<form method="POST">
+
+<input type="text" id="movie" name="movie" placeholder="Search movie..." autocomplete="off">
+
+<button type="submit">Recommend</button>
+
+</form>
+
+<ul id="suggestions"></ul>
+
+<h2>Recommended Movies</h2>
+
+<ul>
+{% for movie in recommendations %}
+<li>{{movie}}</li>
+{% endfor %}
+</ul>
+
+<script>
+
+const searchBox = document.getElementById("movie");
+const suggestions = document.getElementById("suggestions");
+
+searchBox.addEventListener("keyup", function(){
+
+let query = searchBox.value;
+
+if(query.length > 1){
+
+fetch("/search?q=" + query)
+.then(response => response.json())
+.then(data => {
+
+suggestions.innerHTML = "";
+
+data.forEach(movie => {
+
+let li = document.createElement("li");
+li.textContent = movie;
+
+li.onclick = function(){
+searchBox.value = movie;
+suggestions.innerHTML = "";
+};
+
+suggestions.appendChild(li);
+
+});
+
+});
+
+}else{
+suggestions.innerHTML = "";
+}
+
+});
+
+</script>
+
+</body>
+</html>
